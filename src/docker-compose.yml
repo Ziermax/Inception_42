@@ -1,0 +1,61 @@
+services:
+
+  nginx:
+    build:
+      context: requirements/nginx
+    image: nginx
+    container_name: nginx
+    restart: always
+    network:
+      - incepnet
+    depends_on:
+      - worldpress
+    volumes:
+      - wp_files:/var/www/html:ro
+
+
+  worldpress:
+    build: 
+      context: requirements/worldpress
+    image: worldpress
+    container_name: worldpress
+    restart: always
+    network:
+      - incepnet
+    depends_on:
+      - mariadb
+    volumes:
+      - wp_files:/var/www/html
+
+  mariadb:
+    build:
+      context: requirements/mariadb
+    image: mariadb
+    container_name: mariadb
+    restart: always
+    network:
+      - incepnet
+    volumes:
+      - wp_database:/var/lib/mysql
+
+volumes:
+
+  wp_database:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${USER}/data/WordPress
+
+  wp_files:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${USER}/data/WordPress
+
+networks:
+  incepnet:
+    driver: bridge
+
+secrets:

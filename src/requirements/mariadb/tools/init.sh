@@ -2,7 +2,7 @@
 set -e
 
 if [ ! -d "/var/lib/mysql/${MYSQL_DATABASE}" ]; then
-    echo "🧱 Initializing MariaDB database..."
+    echo "Initializing MariaDB database"
 
     mysqld_safe --skip-networking &
     until mysqladmin ping --silent; do
@@ -23,7 +23,7 @@ if [ ! -d "/var/lib/mysql/${MYSQL_DATABASE}" ]; then
 
     mysqladmin shutdown -p"${DB_ROOT_PASS}"
 
-    echo "✅ Database initialized successfully."
+    echo "Database initialized"
 fi
 
 exec mysqld_safe

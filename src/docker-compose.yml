@@ -3,8 +3,8 @@ services:
   nginx:
     build: 
       context: requirements/nginx
-#      args:
-#        DOMAIN_NAME: ${DOMAIN_NAME}
+      args:
+        DOMAIN_NAME: ${DOMAIN_NAME}
     image: nginx
     container_name: nginx
     restart: always
@@ -20,7 +20,7 @@ services:
 
   wordpress:
     build:
-      context:  requirements/wordpress
+      context: requirements/wordpress
     image: wordpress
     container_name: wordpress
     restart: always

@@ -13,13 +13,13 @@ WP_FILES = $(DATA)/WordPress
 all: build up
 
 build:
-	mkdir -p $(HOMER)
-	mkdir -p $(DATA)
-	mkdir -p $(WP_DB) $(WP_FILES)
-	$(DOCMP) -f $(DIR)$(YML) build
+	sudo mkdir -p $(HOMER)
+	sudo mkdir -p $(DATA)
+	sudo mkdir -p $(WP_DB) $(WP_FILES)
+	$(DOCMP) -f $(DIR)$(YML) build 
 
 up:
-	$(DOCMP) -f $(DIR)$(YML) up
+	$(DOCMP) -f $(DIR)$(YML) up -d
 
 down:
 	$(DOCMP) -f $(DIR)$(YML) down

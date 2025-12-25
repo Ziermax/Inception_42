@@ -10,26 +10,27 @@ WP_FILES = $(DATA)/wp_files
 
 #============================RULES=============================#
 
-echo:
-	@echo HOla $(DATA) $(WP_DB) $(WP_FILES)
-
 all: build up
 
 build:
 	mkdir -p $(HOMER)
 	mkdir -p $(DATA)
 	mkdir -p $(WP_DB) $(WP_FILES)
-	$(DOCMP) $(DIR)$(YML) build
+	$(DOCMP) -f $(DIR)$(YML) build
 
 up:
-	$(DOCMP) $(DIR)$(YML) up
+	$(DOCMP) -f $(DIR)$(YML) up
 
 down:
-	$(DOCMP) $(DIR)$(YML) down
+	$(DOCMP) -f $(DIR)$(YML) down
 
 clean:
+	$(DOCMP) -f $(DIR)$(YML) down --remove-orphans 
 
 fclean: clean
-	rm -rf $(DATA)
+	$(DOCMP) -f $(DIR)$(YML) down -v --rmi all --remove-orphans
+	sudo rm -rf $(DATA)
 
 re: fclean all
+
+.PHONY: all build up down clean fclean re

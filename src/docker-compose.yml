@@ -6,7 +6,7 @@ services:
     image: nginx
     container_name: nginx
     restart: always
-    network:
+    networks:
       - incepnet
     depends_on:
       - worldpress
@@ -20,12 +20,17 @@ services:
     image: worldpress
     container_name: worldpress
     restart: always
-    network:
+    networks:
       - incepnet
     depends_on:
       - mariadb
     volumes:
       - wp_files:/var/www/html
+    env_file:
+      - .env
+    secrets:
+      - db_root_password
+      - db_password
 
   mariadb:
     build:
@@ -33,10 +38,15 @@ services:
     image: mariadb
     container_name: mariadb
     restart: always
-    network:
+    networks:
       - incepnet
     volumes:
       - wp_database:/var/lib/mysql
+    env_file:
+      - .env
+    secrets:
+      - db_root_password
+      - db_password
 
 volumes:
 
@@ -45,17 +55,21 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/WordPress
+      device: /home/${USER}/data/wp_database
 
   wp_files:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/WordPress
+      device: /home/${USER}/data/wp_files
 
 networks:
   incepnet:
     driver: bridge
 
 secrets:
+  db_root_password:
+    file: ../secrets/db_root_password.txt
+  db_password:
+    file: ../secrets/db_password.txt

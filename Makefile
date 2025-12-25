@@ -3,15 +3,20 @@ DOCMP = docker compose
 
 DIR = ./src/
 YML = docker-compose.yml
-DATA = /home/$(USER)/data
+HOMER = /home/$(USER)
+DATA = $(HOMER)/data
 WP_DB = $(DATA)/wp_database
 WP_FILES = $(DATA)/wp_files
 
 #============================RULES=============================#
 
+echo:
+	@echo $(DATA) $(WP_DB) $(WP_FILES)
+
 all: build up
 
 build:
+	mkdir -p $(HOMER)
 	mkdir -p $(DATA)
 	mkdir -p $(WP_DB) $(WP_FILES)
 	$(DOCMP) $(DIR)$(YML) build

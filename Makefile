@@ -11,7 +11,7 @@ WP_FILES = $(DATA)/wp_files
 #============================RULES=============================#
 
 echo:
-	@echo $(DATA) $(WP_DB) $(WP_FILES)
+	@echo HOla $(DATA) $(WP_DB) $(WP_FILES)
 
 all: build up
 

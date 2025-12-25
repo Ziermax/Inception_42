@@ -5,8 +5,8 @@ DIR = ./src/
 YML = docker-compose.yml
 HOMER = /home/$(USER)
 DATA = $(HOMER)/data
-WP_DB = $(DATA)/wp_database
-WP_FILES = $(DATA)/wp_files
+WP_DB = $(DATA)/DB
+WP_FILES = $(DATA)/WordPress
 
 #============================RULES=============================#
 
@@ -27,7 +27,7 @@ down:
 clean:
 	$(DOCMP) -f $(DIR)$(YML) down --remove-orphans 
 
-fclean: clean
+fclean:
 	$(DOCMP) -f $(DIR)$(YML) down -v --rmi all --remove-orphans
 	sudo rm -rf $(DATA)
 

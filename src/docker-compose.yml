@@ -59,13 +59,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/mvelazqu/data/WordPress
+      device: /home/${USER}/data/WordPress
   mariadb_data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/mvelazqu/data/DB
+      device: /home/${USER}/data/DB
 
 networks:
 
